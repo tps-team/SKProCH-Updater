@@ -1,0 +1,16 @@
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH Updater.exe.config
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH Updater.exe
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH Updater.pdb
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\DotNetZip.dll
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\DotNetZip.xml
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.csprojResolveAssemblyReference.cache
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.exe
+c:\users\skproch\documents\visual studio 2017\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.pdb
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH Updater.exe.config
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH Updater.exe
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH Updater.pdb
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\DotNetZip.dll
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\DotNetZip.xml
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.csprojResolveAssemblyReference.cache
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.exe
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.pdb
