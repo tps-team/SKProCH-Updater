@@ -35,7 +35,7 @@ namespace SKProCH_Updater
             }
             else
             {
-                System.Diagnostics.Process.Start(launcher_install_path + "Dont Touch This EXE.exe");
+                System.Diagnostics.Process.Start(launcher_install_path + @"Dont_Touch_This_EXE.exe");
                 return;
             }
             Console.WriteLine("Проверка правильности пути папки Minecraft'a.");
