@@ -13,3 +13,4 @@ D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH-Updater.exe
 D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH-Updater.pdb
 D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH-Updater.exe
 D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH-Updater.pdb
+D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.csprojResolveAssemblyReference.cache

@@ -127,7 +127,7 @@ namespace SKProCH_Updater
                 if (ccomp == true)
                 {
                     ccomp = false;
-                    DSpeed = (int)e.BytesReceived / Time;
+                    DSpeed = (int)e.BytesReceived / Time / 1024;
                     int KbitRecieved = (int)e.BytesReceived / 8 / 1024;
                     int KbitTotal = (int)totalBytes / 8 / 1024;
                     long BytesRemaining = totalBytes - e.BytesReceived;
@@ -139,7 +139,7 @@ namespace SKProCH_Updater
                     }
                     if (PER1 + 2 < Time)
                     {
-                        TNeed = (int)e.BytesReceived / Time;
+                        TNeed = (int)e.BytesReceived / Time ;
                         PER1 = Time;
                     }
                     Console.SetCursorPosition(0, pos + 2);
@@ -178,7 +178,7 @@ namespace SKProCH_Updater
                         if (value == 13) { Console.ForegroundColor = ConsoleColor.Yellow; }
                         Console.Write(">");
                     }
-                    Console.SetCursorPosition(53, pos);
+                    Console.SetCursorPosition(53, pos + 1);
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write(Per);
                     ccomp = true;
