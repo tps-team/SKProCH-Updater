@@ -13,9 +13,9 @@ namespace SKProCH_Updater
             WebClient wc = new WebClient();
             string base_url = "ftp://updater:thisispassword@31.25.29.138/usb1_1/minecraft/DontTouchThisFolder/";
             string appdata_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string appdata_launcher_path = appdata_path + @"\scproch_updater\";
+            string appdata_launcher_path = appdata_path + @"\SKProCH Lab\MC Updater\";
             string temp_path = appdata_launcher_path + @"Temp\";
-            string launcher_install_path = @"C:\Program Files\SKProCH Updater\";
+            string launcher_install_path = @"C:\Program Files\SKProCH Lab\MC Updater\";
 
             Console.WriteLine("Сканирование новых версий для программы автоматического обновления...");
 
@@ -40,19 +40,57 @@ namespace SKProCH_Updater
             }
             Console.WriteLine("Проверка правильности пути папки Minecraft'a.");
             string Path = File.ReadAllText(appdata_launcher_path + "MCPath.txt");
-            if (Directory.Exists(Path))
-            { Console.WriteLine("Путь указан правильно."); }
-            else
+            if (Path != null)
             {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("ВЫ, ВЕРОЯТНО, УКАЗАЛИ НЕПРАВИЛЬНЫЙ ПУТЬ К ПАПКЕ MINECRAFT\n Потому, что такого пути не существует.\nНажмите любую клавишу и откроется инструкция.");
-                Console.ReadKey(true);
-                System.Diagnostics.Process.Start(@"https://cdn.discordapp.com/attachments/236018668889309185/331019888443260928/unknown.png");
-                Console.WriteLine("Выполните необходимые действия и нажмите любую клавишу. Приложение будет закрыто.");
-                Console.ReadKey(true);
-                return;
+                if (Directory.Exists(Path))
+                { Console.WriteLine("Путь указан правильно."); }
+                else
+                {
+                    if (Directory.Exists(temp_path + "MCPath.granted"))
+                    {
+                        Console.WriteLine("Возможно путь указан неправильно, однако вы подтвердили его. Установка продолжается!");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("ВЫ, ВЕРОЯТНО, УКАЗАЛИ НЕПРАВИЛЬНЫЙ ПУТЬ К ПАПКЕ MINECRAFT\n Потому, что такого пути не существует(Либо в нем есть русские символы).");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("Нажмите N для того, что бы прочитать инструкцию еще раз и ввести новый путь.\n Нажмите Y, что бы подтвердить, что все правильно.\n В любом случае вы можете изменить путь самостоятельно.");
+                        int CPos1 = Console.CursorTop;
+                        var x = Console.ReadKey();
+                        Console.SetCursorPosition(0, CPos1);
+                        switch (Convert.ToString(x.KeyChar))
+                        {
+                            case "y":
+                            case "н":
+                                File.Create(temp_path + "MCPath.granted");
+                                break;
+                            case "n":
+                            case "т":
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                string newlv = File.ReadAllText(appdata_launcher_path + @"Temp\ForgeVErsion.txt");
+                                Console.WriteLine("Для того, что бы правильно подготовить рабочую папку Minecraft создайте новый модпак в Curse(Twitch) или MultiMC. Установите Forge");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine(newlv);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Далее зайдите в папку лаунчера, в Modpacks (Instances), в в папку созданного модпака, там, где находятся директории Mods и Config.");
+                                Console.WriteLine("Скопируйте адрес данной папки... Нажмите ПКМ на название консоли, выберите <Изменить> и Вставить.");
+                                Console.CursorVisible = true;
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                string MCPath = Console.ReadLine();
+                                File.WriteAllText(appdata_launcher_path + "MCPath.txt", MCPath);
+                                File.Delete(appdata_launcher_path + @"Temp\ForgeVersion.txt");
+                                Console.WriteLine("Файл с путем к папке Minecraft'a находится тут: " + appdata_launcher_path + "MCPath.txt");
+                                Console.WriteLine("Потом вы можете вручную изменить путь, открыв данный файл.");
+                                Console.ReadKey(true);
+                                return;
+                        }
+                        
+                    }
+                }
             }
+            else
+            
             Console.WriteLine("Сканирование новых версий новых версий клиента Minecraft...");
             string url1 = base_url + "M_Version.txt";
             string save_path1 = temp_path;

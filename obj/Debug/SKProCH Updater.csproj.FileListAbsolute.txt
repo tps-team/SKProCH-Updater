@@ -14,3 +14,10 @@ D:\vs\Projects\SKProCH Updater\SKProCH Updater\bin\Debug\SKProCH-Updater.pdb
 D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH-Updater.exe
 D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH-Updater.pdb
 D:\vs\Projects\SKProCH Updater\SKProCH Updater\obj\Debug\SKProCH Updater.csprojResolveAssemblyReference.cache
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\bin\Debug\SKProCH-Updater.exe.config
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\bin\Debug\SKProCH-Updater.exe
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\bin\Debug\SKProCH-Updater.pdb
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\bin\Debug\DotNetZip.xml
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\SKProCH Updater.csprojResolveAssemblyReference.cache
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\SKProCH-Updater.exe
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\SKProCH-Updater.pdb
