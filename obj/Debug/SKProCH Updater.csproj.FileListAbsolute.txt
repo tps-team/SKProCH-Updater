@@ -21,3 +21,5 @@ C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-U
 C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\SKProCH Updater.csprojResolveAssemblyReference.cache
 C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\SKProCH-Updater.exe
 C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\SKProCH-Updater.pdb
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Users\SKProCH\Documents\Visual Studio 2017\Projects\SKProCH Updater\SKProCH-Updater\obj\Debug\SKProCH Updater.csproj.ResolveComReference.cache

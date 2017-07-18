@@ -32,10 +32,11 @@ namespace SKProCH_Updater
             if (local_l_v == new_l_v)
             {
                 Console.WriteLine("Сканирование завершено. \n Новых версий не обнаружено.");
+                RemoveTemp();
             }
             else
             {
-                System.Diagnostics.Process.Start(launcher_install_path + @"Dont_Touch_This_EXE.exe");
+                System.Diagnostics.Process.Start(launcher_install_path + @"Dont Touch This EXE.exe");
                 return;
             }
             Console.WriteLine("Проверка правильности пути папки Minecraft'a.");
@@ -46,7 +47,7 @@ namespace SKProCH_Updater
                 { Console.WriteLine("Путь указан правильно."); }
                 else
                 {
-                    if (Directory.Exists(temp_path + "MCPath.granted"))
+                    if (File.Exists(appdata_launcher_path + "MCPath.granted"))
                     {
                         Console.WriteLine("Возможно путь указан неправильно, однако вы подтвердили его. Установка продолжается!");
                     }
@@ -63,7 +64,7 @@ namespace SKProCH_Updater
                         {
                             case "y":
                             case "н":
-                                File.Create(temp_path + "MCPath.granted");
+                                File.Create(appdata_launcher_path + "MCPath.granted");
                                 break;
                             case "n":
                             case "т":
@@ -83,14 +84,32 @@ namespace SKProCH_Updater
                                 Console.WriteLine("Файл с путем к папке Minecraft'a находится тут: " + appdata_launcher_path + "MCPath.txt");
                                 Console.WriteLine("Потом вы можете вручную изменить путь, открыв данный файл.");
                                 Console.ReadKey(true);
-                                return;
+                                break;
                         }
                         
                     }
                 }
             }
             else
-            
+            {
+                wc.DownloadFile(base_url + "ForgeVersion.txt", appdata_launcher_path + @"Temp\ForgeVersion.txt");
+                Console.ForegroundColor = ConsoleColor.Red;
+                string newlv = File.ReadAllText(appdata_launcher_path + @"Temp\ForgeVersion.txt");
+                Console.WriteLine("Для того, что бы правильно подготовить рабочую папку Minecraft создайте новый модпак в Curse(Twitch) или MultiMC. Установите Forge");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(newlv);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Далее зайдите в папку лаунчера, в Modpacks (Instances), в в папку созданного модпака, там, где находятся директории Mods и Config.");
+                Console.WriteLine("Скопируйте адрес данной папки... Нажмите ПКМ на название консоли, выберите <Изменить> и Вставить.");
+                Console.CursorVisible = true;
+                Console.ForegroundColor = ConsoleColor.Red;
+                string MCPath = Console.ReadLine();
+                File.WriteAllText(appdata_launcher_path + "MCPath.txt", MCPath);
+                File.Delete(appdata_launcher_path + @"Temp\ForgeVersion.txt");
+                Console.WriteLine("Файл с путем к папке Minecraft'a находится тут: " + appdata_launcher_path + "MCPath.txt");
+                Console.WriteLine("Потом вы можете вручную изменить путь, открыв данный файл.");
+                Console.ReadKey(true);
+            }
             Console.WriteLine("Сканирование новых версий новых версий клиента Minecraft...");
             string url1 = base_url + "M_Version.txt";
             string save_path1 = temp_path;
@@ -102,6 +121,7 @@ namespace SKProCH_Updater
             {
                 Console.WriteLine("Сканирование завершено. \n Новых версий не обнаружено.");
                 Console.Write("Нажмите любую клавишу для завершения...");
+                RemoveTemp();
                 Console.ReadKey(true);
                 return;
             }
@@ -110,16 +130,18 @@ namespace SKProCH_Updater
                 Console.WriteLine("Новые версии обнаружены.\nНачинаем загрузку...\nЭто может продлится долго.");
                 string ModsPath;
                 ModsPath = Path + @"\Mods";
-                Console.WriteLine("Папка вашего клиента - " + ModsPath);
+                Console.WriteLine("Папка вашего клиента - " + Path);
                 Directory.Delete(@ModsPath, true);
                 Directory.CreateDirectory(@ModsPath);
+                Directory.Delete(Path + @"\Config", true);
+                Directory.CreateDirectory(Path + @"\Config");
                 string url2 = base_url + "Client.zip";
                 string save_path2 = temp_path;
                 string name2 = "Client.zip";
                 Download(url2, save_path2, name2);
                 Console.WriteLine("Распаковываем клиент...");
                 ZipFile zf = new ZipFile(temp_path + "Client.zip");
-                zf.ExtractAll(ModsPath);
+                zf.ExtractAll(Path);
                 Console.WriteLine("Завершено");
                 Console.WriteLine("Переносим ваши моды...");
                 ZipFile NM = new ZipFile(temp_path + "NM.zip");
@@ -131,6 +153,7 @@ namespace SKProCH_Updater
                 Console.WriteLine("Завершено");
                 Console.Write("Нажмите любую клавишу для завершения...");
                 Console.ReadKey(true);
+                RemoveTemp();
                 return;
             }
         }
@@ -148,10 +171,6 @@ namespace SKProCH_Updater
             int TNeed = 0;
             int DSpeed = 1;
             int PER1 = 3;
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Загружаем " + name + "...");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("◄——————————————————————————————————————————————————►    % Завершено...");
             var webClient = new WebClient();
             var request = (FtpWebRequest)WebRequest.Create(url);
             request.Method = WebRequestMethods.Ftp.GetFileSize;
@@ -177,24 +196,25 @@ namespace SKProCH_Updater
                     }
                     if (PER1 + 2 < Time)
                     {
-                        TNeed = (int)e.BytesReceived / Time ;
+                        TNeed = (int)BytesRemaining / (int)e.BytesReceived * Time;
                         PER1 = Time;
                     }
-                    Console.SetCursorPosition(0, pos + 2);
-                    Console.Write("Скачано " + KbitRecieved + " Кбайт из " + KbitTotal + " Кбайт. Средняя скорость - " + DSpeed + "КБайт/С");
-                    Console.SetCursorPosition(0, pos + 3);
-                    Console.Write("Прошло времени - " + TExpired1 + " мин. " + TExpired + " сек. Осталось - " + TNeed + " сек.");
-                    if (Per < 25)
+                    int pointwritedE = pointwrited;
+                    Console.SetCursorPosition(0, pos);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("Загружаем " + name + "...");
+                    Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft));
+                    Console.SetCursorPosition(0, pos + 1);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write("◄");
+                    if (Per < 30)
                         Console.ForegroundColor = ConsoleColor.DarkRed;
-                    else if (Per < 50)
+                    else if (Per < 66)
                         Console.ForegroundColor = ConsoleColor.Red;
-                    else if (Per < 75)
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    else if (Per < 100)
+                    else if (Per < 90)
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     else
                         Console.ForegroundColor = ConsoleColor.Green;
-                    Console.SetCursorPosition(1, pos + 1);
                     Console.Write(new string('█', pointwrited));
                     if (pointwrited < 50)
                     {
@@ -215,10 +235,22 @@ namespace SKProCH_Updater
                         if (value == 12) { Console.ForegroundColor = ConsoleColor.White; }
                         if (value == 13) { Console.ForegroundColor = ConsoleColor.Yellow; }
                         Console.Write(">");
+                        --pointwritedE;
                     }
-                    Console.SetCursorPosition(53, pos + 1);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write(new string('—', 50 - pointwritedE));
+                    Console.Write("► ");
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Write(Per);
+                    Console.Write(Per + "% Завершено!");
+                    Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft));
+                    Console.SetCursorPosition(0, pos + 2);
+                    Console.Write("Скачано " + KbitRecieved + " Кбайт из " + KbitTotal + " Кбайт. Средняя скорость - " + DSpeed + "КБайт/С");
+                    Console.Write(new string(' ', Console.WindowWidth - Console.CursorLeft));
+                    Console.SetCursorPosition(0, pos + 3);
+                    Console.Write("Прошло времени - " + TExpired1 + " мин. " + TExpired + " сек. Осталось - " + TNeed + " сек.");
+                    Console.WriteLine(new string(' ', Console.WindowWidth - Console.CursorLeft));
+                    Console.SetCursorPosition(0, pos + 4);
+                    Console.WriteLine(new string(' ', 400));
                     ccomp = true;
                 }
 
@@ -227,7 +259,7 @@ namespace SKProCH_Updater
             {
                 Thread.Sleep(3000);
                 Console.SetCursorPosition(0, pos);
-                Console.Write(new string(' ', 320));
+                Console.Write(new string(' ', 800));
                 Console.SetCursorPosition(0, pos);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("_-=<-(}[");
@@ -251,7 +283,13 @@ namespace SKProCH_Updater
             } while (DCompleted != true);
             Console.CursorVisible = true;
         }
+        static void RemoveTemp ()
+        {
+            string appdata_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appdata_launcher_path = appdata_path + @"\SKProCH Lab\MC Updater\";
+            string temp_path = appdata_launcher_path + @"Temp\";
+            Directory.Delete(temp_path, true);
+            Directory.CreateDirectory(temp_path);
+        }
     }
 }
-
-
