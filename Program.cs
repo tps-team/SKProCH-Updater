@@ -36,6 +36,10 @@ namespace SKProCH_Updater
             }
             else
             {
+
+                wc.DownloadFile(base_url + "Dont_Touch_This_EXE.exe", temp_path + "TempEXE.exe");
+                File.Delete(launcher_install_path + "Dont Touch This EXE.exe");
+                File.Move(temp_path + "TempEXE.exe", launcher_install_path + "Dont Touch This EXE.exe");
                 System.Diagnostics.Process.Start(launcher_install_path + @"Dont Touch This EXE.exe");
                 return;
             }
@@ -129,12 +133,19 @@ namespace SKProCH_Updater
             {
                 Console.WriteLine("Новые версии обнаружены.\nНачинаем загрузку...\nЭто может продлится долго.");
                 string ModsPath;
-                ModsPath = Path + @"\Mods";
+                ModsPath = Path + @"\mods";
                 Console.WriteLine("Папка вашего клиента - " + Path);
                 Directory.Delete(@ModsPath, true);
                 Directory.CreateDirectory(@ModsPath);
-                Directory.Delete(Path + @"\Config", true);
-                Directory.CreateDirectory(Path + @"\Config");
+                if (Directory.Exists(Path + @"\Config"))
+                {
+                    Directory.Delete(Path + @"\Config", true);
+                    Directory.CreateDirectory(Path + @"\Config");
+                }
+                else
+                {
+                    Directory.CreateDirectory(Path + @"\Config");
+                }
                 string url2 = base_url + "Client.zip";
                 string save_path2 = temp_path;
                 string name2 = "Client.zip";
